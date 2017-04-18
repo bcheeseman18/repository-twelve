@@ -1,0 +1,25 @@
+@import 'node_modules/foundation-sites/scss/foundation';
+@include foundation-global-styles;
+@include foundation-grid;
+
+body {
+    background-color: black;
+    color: white; 
+}
+
+header {
+    @include grid-row();
+
+    h1 {
+        @include grid-column(12);
+        text-align: center;
+    }
+
+    h3 {
+        text-align: left;
+    }
+}
+
+button {
+    color: white;
+}
