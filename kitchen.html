@@ -4,10 +4,23 @@
 <head>
 <link rel="stylesheet" href="https://necolas.github.io/normalize.css/6.0.0/normalize.css">
    <link rel="stylesheet" href="menu.css">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
     <script src="Kitchen.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-   <!-- <script type="x-mustache-template" id="message-template">
-        <p class="food">Food {{ Item }}</p> -->
+   <script type="x-mustache-template" id="kitchen-template">
+        <p>{{ name }}</p>
+        <p>{{ description }}</p>
+        <p>{{ price }}</p>
+        <p>{{ availability }}</p>
+        <label> {{ availtext }} </label>
+        <button class="availBtn">Change availability</button>
+        <h2>Order</h2>
+        <p>{{ table_Id }}</p>
+        <p>{{ name }}</p>
+        <button class="completeBtn">Complete</button>
+        </script>
+    
+
 </head>
 
 <body>
@@ -16,7 +29,8 @@
     </header>
     <ul class="menu">
     </ul>
-
+    
+    
     <ul class="order">
     </ul>
 
