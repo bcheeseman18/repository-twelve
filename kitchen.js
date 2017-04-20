@@ -18,7 +18,7 @@ and allow users to click a button to make a food available or unavailable (POST 
 Unlike the menu view, unavailable items should still be listed here.
  */
 
-function setAvailability (item, availtext) { //pass these parameters because function is out of scope
+function setAvailability(item, availtext) { //pass these parameters because function is out of scope
     if (item.available) {
         availtext.textContent = "Available";
     } else {
@@ -44,53 +44,20 @@ function available() {
     items.send();
 }
 
-
 function makeMenu(item) {
-    // let template = document.querySelector('#message-template').innerHTML; 
+    let template = document.querySelector('#kitchen-template').innerHTML;
 
     let parent = document.querySelector('.menu');
 
-     let menuItem = document.createElement('li');
-    // menuItem.classList.add('item');
-    // parent.innerHTML = Mustache.render(template, {
-    //      food: item.name,
-    // });
+    let menuItem = document.createElement('li');
+    menuItem.classList.add('item');
+    menuItem.innerHTML = Mustache.render(template, item); 
 
-    
-
-    let food = document.createElement('p');
-    food.textContent = item.name;
-
-    let description = document.createElement('p');
-    description.textContent = item.description;
-
-
-    let price = document.createElement('p');
-    price.textContent = item.price;
-
-    let availability = document.createElement('p');
-    let availtext = document.createElement('label');
-    availability.appendChild(availtext);
-
-    setAvailability(item, availtext);
-
-    menuItem.appendChild(food);
-    menuItem.appendChild(description);
-    menuItem.appendChild(price);
-    menuItem.appendChild(availability);
-
-    parent.appendChild(menuItem);
-
-    console.log('show item');
-
-    //--------------------------requests availability of item ------------------------
-    let availBtn = document.createElement('button')
-    availBtn.textContent = 'Change availability'
-    availability.appendChild(availBtn);
-
-    availBtn.addEventListener('click', function () {
+    let availBtn = menuItem.querySelector('.availBtn'); 
+        availBtn.addEventListener('click', function () {
         console.log('Item ordered');
 
+    let availtext = menuItem.querySelector('label'); 
         item.available = !item.available
         setAvailability(item, availtext); //pass these parameters because function is out of scope
 
@@ -99,7 +66,48 @@ function makeMenu(item) {
         request.open('POST', url);
         request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         request.send()
-    });
+    })
+    // let food = document.createElement('p');
+    // food.textContent = item.name;
+
+    // let description = document.createElement('p');
+    // description.textContent = item.description;
+
+    // let price = document.createElement('p');
+    // price.textContent = item.price;
+
+    // let availability = document.createElement('p');
+    // let availtext = document.createElement('label');
+    // availability.appendChild(availtext);
+
+    // setAvailability(item, availtext);
+
+    // menuItem.appendChild(food);
+    // menuItem.appendChild(description);
+    // menuItem.appendChild(price);
+    // menuItem.appendChild(availability);
+
+    parent.appendChild(menuItem);
+
+    console.log('show item');
+
+    //--------------------------requests availability of item ------------------------
+    // let availBtn = document.createElement('button')
+    // availBtn.textContent = 'Change availability'
+    // availability.appendChild(availBtn);
+
+    // availBtn.addEventListener('click', function () {
+    //     console.log('Item ordered');
+
+    //     item.available = !item.available
+    //     setAvailability(item, availtext); //pass these parameters because function is out of scope
+
+    //     let request = new XMLHttpRequest();
+    //     let url = 'https://tiy-28202.herokuapp.com/menu/' + item.id;
+    //     request.open('POST', url);
+    //     request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    //     request.send()
+    // });
 }
 
 function loadMenu() {
@@ -120,27 +128,29 @@ function loadMenu() {
 }
 
 function makeOrder(order, i) {
-    
+
+    let template = document.querySelector('#kitchen-template').innerHTML;
 
     let parent = document.querySelector('.order');
 
     let orderItem = document.createElement('li');
     orderItem.classList.add('order');
+    orderItem.innerHTML = Mustache.render(template, order); 
 
-    let tableId = document.createElement('p'); 
-    tableId.textContent = order.table_id;
-    orderItem.appendChild(tableId);
+    // let tableId = document.createElement('p');
+    // tableId.textContent = order.table_id;
+    // orderItem.appendChild(tableId);
 
-    for(let i = 0; i < order.items.length; i++) {
-        let name = document.createElement('p');
-        name.textContent = order.items[i].name;  
-        orderItem.appendChild(name); 
+    for (let i = 0; i < order.items.length; i++) {
+        let name = document.querySelector('p');
+        // name.textContent = order.items[i].name;
+        // orderItem.appendChild(name);
     }
-    
+
     if (order.in_progress) {
-        let completeBtn = document.createElement('button')
-        completeBtn.textContent = 'Complete'
-        orderItem.appendChild(completeBtn);
+        let completeBtn = document.querySelector('.completeBtn')
+        // completeBtn.textContent = 'Complete'
+        // orderItem.appendChild(completeBtn);
         completeBtn.addEventListener('click', function () {
             console.log('Complete Order');
 
@@ -148,7 +158,7 @@ function makeOrder(order, i) {
             let url = 'https://tiy-28202.herokuapp.com/order/' + i;
             request.open('POST', url);
             request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-            request.send(); 
+            request.send();
         });
     }
     parent.appendChild(orderItem);
@@ -165,15 +175,15 @@ function loadOrders() {
         for (let i = 0; i < response.length; i++) {
             makeOrder(response[i], i);
         }
-    }); 
-    request.send(); 
+    });
+    request.send();
 }
 
 window.addEventListener('load', function () {
 
     //-------------------function gets menu from API and uses makeMenu to display-----------
- loadMenu(); 
- loadOrders(); 
+    loadMenu();
+    loadOrders();
 });
 
 
