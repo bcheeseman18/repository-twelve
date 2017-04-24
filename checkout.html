@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/6.0.0/normalize.css">
+   <link rel="stylesheet" href="menu.css">
+   <link href="https://fonts.googleapis.com/css?family=UnifrakturCook:700" rel="stylesheet">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+    <script src="checkout.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="x-mustache-template" id="checkout-template">
+        {{ #orders }}
+            <option> {{ table_id }} </option>
+        {{ /orders }}
+    </script>
+    <script type="x-mustache-template" id="order-template">
+        {{ #items }}
+            <p>{{ name }}</p>
+        {{ /items }}
+        <p> {{ totalprice }} </p>
+    </script>
+
+</head>
+
+<body>
+    <header>
+        <h1>Checkout</h1>
+    </header>
+
+    <select class="orderSelect"></select>
+    <ul class="orderItems"></ul>
+
+
+    <form>
+        First name:<br>
+        <input type="text" name="firstname">
+        <br>
+        Last name:<br>
+        <input type="text" name="lastname">
+        <br>
+        Email Address:<br>
+        <input type="text" class="emailaddress">
+        <br>
+        Credit Card:<br>
+        <input type="text" class="creditcard">
+        <label class="errmsg" hidden="hidden">Invalid Credit Card</label>
+    </form>
+</body>
+
+
+</html>
