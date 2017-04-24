@@ -1373,12 +1373,18 @@ pre {
 
 body {
   background-color: black;
-  color: white; }
+  color: red;
+  background-image: url(https://i1.wp.com/www.cooksscience.com/wp-content/uploads/2017/03/hero_SFS_MilkSteak_0053-2.jpg?resize=440%2C440);
+  background-size: 100%;
+  font-family: 'UnifrakturCook', cursive; }
 
 header {
   max-width: 75rem;
   margin-right: auto;
-  margin-left: auto; }
+  margin-left: auto;
+  background-image: url(https://i1.wp.com/www.cooksscience.com/wp-content/uploads/2017/03/hero_SFS_MilkSteak_0053-2.jpg?resize=440%2C440);
+  background-size: 100%;
+  font-size: 3em; }
   header::before, header::after {
     display: table;
     content: ' '; }
@@ -1399,7 +1405,38 @@ header {
   header h3 {
     text-align: left; }
 
+.menu {
+  max-width: 75rem;
+  margin-right: auto;
+  margin-left: auto; }
+  .menu::before, .menu::after {
+    display: table;
+    content: ' '; }
+  .menu::after {
+    clear: both; }
+  .menu li {
+    width: 50%;
+    float: left;
+    padding-right: 0.625rem;
+    padding-left: 0.625rem;
+    display: inline-block;
+    text-decoration: none;
+    font-size: 2em;
+    border: 3px solid black;
+    padding: 0;
+    margin: 0; }
+    @media print, screen and (min-width: 40em) {
+      .menu li {
+        padding-right: 0.9375rem;
+        padding-left: 0.9375rem; } }
+    .menu li:last-child:not(:first-child) {
+      float: right; }
+
 button {
-  color: white; }
+  color: white;
+  border: 1px solid black;
+  background-color: black;
+  margin: 0;
+  padding: 0; }
 
 /*# sourceMappingURL=menu.css.map */
