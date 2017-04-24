@@ -54,10 +54,10 @@ function makeMenu(item) {
     menuItem.innerHTML = Mustache.render(template, item); 
 
     let availBtn = menuItem.querySelector('.availBtn'); 
-        availBtn.addEventListener('click', function () {
+    availBtn.addEventListener('click', function () {
         console.log('Item ordered');
 
-    let availtext = menuItem.querySelector('label'); 
+        let availtext = menuItem.querySelector('label'); 
         item.available = !item.available
         setAvailability(item, availtext); //pass these parameters because function is out of scope
 
@@ -127,41 +127,40 @@ function loadMenu() {
     request.send();
 }
 
-function makeOrder(order, i) {
-
-    let template = document.querySelector('#kitchen-template').innerHTML;
-
+function makeOrder(order) {
     let parent = document.querySelector('.order');
 
     let orderItem = document.createElement('li');
-    orderItem.classList.add('order');
+    // orderItem.classList.add('order');
+    parent.appendChild(orderItem);
+
+    let template = document.querySelector('#order-template').innerHTML;
     orderItem.innerHTML = Mustache.render(template, order); 
 
-    // let tableId = document.createElement('p');
+   // let tableId = orderItem.querySelector('p');
     // tableId.textContent = order.table_id;
     // orderItem.appendChild(tableId);
 
-    for (let i = 0; i < order.items.length; i++) {
-        let name = document.querySelector('p');
-        // name.textContent = order.items[i].name;
-        // orderItem.appendChild(name);
-    }
+ //    for (let i = 0; i < order.items.length; i++) {
+    // let name = orderItem.querySelector('p');
+    //     name.textContent = order.items[i].name;
+    //     orderItem.appendChild(name);
+   // }
 
     if (order.in_progress) {
-        let completeBtn = document.querySelector('.completeBtn')
+            let completeBtn = orderItem.querySelector('.completeBtn');
         // completeBtn.textContent = 'Complete'
         // orderItem.appendChild(completeBtn);
-        completeBtn.addEventListener('click', function () {
+            completeBtn.addEventListener('click', function () {
             console.log('Complete Order');
 
             let request = new XMLHttpRequest();
-            let url = 'https://tiy-28202.herokuapp.com/order/' + i;
+            let url = 'https://tiy-28202.herokuapp.com/order/' + order.id;
             request.open('POST', url);
             request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
             request.send();
         });
     }
-    parent.appendChild(orderItem);
 }
 
 function loadOrders() {
@@ -173,7 +172,7 @@ function loadOrders() {
         let response = JSON.parse(request.responseText);
         console.log(response);
         for (let i = 0; i < response.length; i++) {
-            makeOrder(response[i], i);
+            makeOrder(response[i]);
         }
     });
     request.send();
