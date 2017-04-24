@@ -10,7 +10,7 @@ function validateCreditCard(ccnumber) {
 }
 
 function validateEmail(email) {
-    let result = ccnumber.search( /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+    let result = email.search( /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
     return result != -1;
 }
 
@@ -46,7 +46,6 @@ function listOrders(response) {
         let order = response[this.selectedIndex];
         displayOrderItems(order);
     }
-
 }
 
 function loadOrders() {
@@ -82,4 +81,6 @@ function loadValidators() {
 window.addEventListener('load', function () {
     loadOrders();
     loadValidators();
+    validateCreditCard(); 
+    validateEmail(); 
 });
