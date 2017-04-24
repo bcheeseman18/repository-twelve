@@ -9,12 +9,12 @@ function validateCreditCard(ccnumber) {
     return result != -1;
 }
 
-function validateEmail(email) {
-    let result = email.search( /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
-    return result != -1;
-}
+// function validateEmail(email) {
+//     let result = email.search( /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+//     return result != -1;
+// }
 
-function displayOrderItems(order) {
+function displayOrderItems(order) { //displays the order
     let totalSum = 0.0;
     for(let i = 0; i < order.items.length; i++) {
         totalSum += order.items[i].price
@@ -29,9 +29,9 @@ function displayOrderItems(order) {
     let orderItem = document.createElement('li'); 
     parent.appendChild(orderItem); 
 
-}
+} //end of ordering display function
 
-function listOrders(response) {
+function listOrders(response) { // dropdown menu
     for(let i = 0; i < response.length; i++) {
         response[i]["selected"] = function() {
             console.log("selected")
@@ -46,9 +46,9 @@ function listOrders(response) {
         let order = response[this.selectedIndex];
         displayOrderItems(order);
     }
-}
+} // end of dropdown menu
 
-function loadOrders() {
+function loadOrders() { //gets the info from the order API
 
     let request = new XMLHttpRequest();
     request.open('GET', 'http://tiy-28202.herokuapp.com/order');
@@ -60,10 +60,10 @@ function loadOrders() {
         listOrders(response);
     });
     request.send();
-}
+} //end of request
 
 
-function loadValidators() {
+function loadValidators() { // displays error messages 
     let cctext = document.querySelector('.creditcard');
     let ccerrmsg = document.querySelector(".ccerrmsg");
     cctext.addEventListener('blur', function() { // 
@@ -82,5 +82,5 @@ window.addEventListener('load', function () {
     loadOrders();
     loadValidators();
     validateCreditCard(); 
-    validateEmail(); 
+//    validateEmail(); 
 });
