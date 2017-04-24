@@ -13,22 +13,17 @@ function makeMenu(item) {
 
     let parent = document.querySelector('ul');
 
-
     let menuItem = document.createElement('li');
     menuItem.classList.add('item');
-
 
     let food = document.createElement('p');
     food.textContent = item.name;
 
-
     let description = document.createElement('p');
     description.textContent = item.description;
 
-
     let price = document.createElement('p');
     price.textContent = item.price;
-
 
     menuItem.appendChild(food);
     menuItem.appendChild(description);
@@ -45,88 +40,55 @@ function makeMenu(item) {
     orderBtn.addEventListener('click', function () {
         console.log('Item added');
 
-
         let request = new XMLHttpRequest();
         request.open('POST', 'https://tiy-28202.herokuapp.com/order');
         request.addEventListener('load', function () {
             console.log('recieved'); //this is not necessary for POST
 
-        function getBill() {
-            let bill = new XMLHttpRequest(); 
-            bill.open('GET', 'http://tiy-28202.herokuapp.com/bill?table_id=Ben'); 
-            bill.addEventListener('load', function () {
+            function getBill() {
+                let bill = new XMLHttpRequest();
+                bill.open('GET', 'http://tiy-28202.herokuapp.com/bill?table_id=Ben');
+                bill.addEventListener('load', function () {
 
-                    let response = JSON.parse(bill.responseText); 
-                    console.log(response); 
+                    let response = JSON.parse(bill.responseText);
+                    console.log(response);
                     for (let i = 0; i < response.length; i++) {
-                        makeMenu(response[i]); 
+                        makeMenu(response[i]);
                     }
-                    console.log(response); 
-            }); 
+                    console.log(response);
+                });
 
-            bill.send(); 
-        }
-    getBill(); 
-});
+                bill.send();
+            }
+            getBill();
+        });
 
         request.send(JSON.stringify({
             table_id: 'Ben',
             menu_id: item.id,
-
         }));
 
     });
 }
 
+//-------------------------- AJAX ------------------------------------
 
+window.addEventListener('load', function () {
 
+    function getMenu() { //function recieves the menu items from API
+        let request = new XMLHttpRequest();
+        request.open('GET', 'http://tiy-28202.herokuapp.com/menu');
+        request.addEventListener('load', function () {
 
-
-
-
-
-
-
-
-
-
-
-
-    //-------------------------- AJAX ------------------------------------
-
-
-    window.addEventListener('load', function () {
-
-        function getMenu() { //function recieves the menu items from API
-            let request = new XMLHttpRequest();
-            request.open('GET', 'http://tiy-28202.herokuapp.com/menu');
-            request.addEventListener('load', function () {
-
-
-                let response = JSON.parse(request.responseText);
-                console.log(response);
-                for (let i = 0; i < response.length; i++) {
-                    makeMenu(response[i]);
-                }
-                console.log(response);
-
-            });
-
-            request.send();
-
-
-        }
-
-        getMenu();
-
-
-        /*
-            let orderBtn = document.querySelector(#order);
-            orderBtn.addEventListener('click', function (){
-                console.log(); 
-        
-        
-            }); 
-        */
-    }); //close of addEventListener
+            let response = JSON.parse(request.responseText);
+            console.log(response);
+            for (let i = 0; i < response.length; i++) {
+                makeMenu(response[i]);
+            }
+            console.log(response);
+        });
+        request.send();
+    }
+    getMenu();
+}); //close of addEventListener
 
